@@ -3,6 +3,8 @@
 namespace Config;
 
 // Create a new instance of our RouteCollection class.
+use App\Controllers\UserController;
+
 $routes = Services::routes();
 
 // Load the system's routing file first, so that the app and ENVIRONMENT
@@ -23,6 +25,8 @@ $routes->setTranslateURIDashes(false);
 $routes->set404Override();
 $routes->setAutoRoute(true);
 
+
+
 /*
  * --------------------------------------------------------------------
  * Route Definitions
@@ -31,8 +35,24 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
+$routes->get('/', 'BindingController::binding');
 
+$routes->get('/users','UserController::index');
+$routes->match(['get','post'],'/users/loginAction','UserController::loginAction');
+$routes->match(['get','post'],'/users/registerAction','UserController::registerAction');
+$routes->get('/users/login','UserController::login');
+$routes->get('/users/register','UserController::register');
+$routes->get('/users/(:segment)','UserController::$1');
+
+$routes->get('/pages','PageController::index');
+$routes->get('/pages/all','PageController::allPages');
+$routes->get('/pages/add','PageController::add');
+$routes->match(['get','post'],'/pages/addAction','PageController::addAction');
+
+
+
+$routes->get('/books/binding','BindingController::binding');
+$routes->get('/test','PageController::test');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

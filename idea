@@ -1,6 +1,56 @@
+Models:
+-user
+id
+email
+password
+role (user/admin)
+
+-page
+id
+name
+type (pattern/generated/image)
+is_a_spread
+is_two_sided
+description
+
+-books
+id
+name
+
+-order
+id
+user_id
+book_id
+price
+isPaid
+isMade
+isShipped
+
+
+Controllers:
++userController
+-pageController
+-adminController
+-pageCollectionController
+-bookController
+-orderController
+
+Views:
+-main website
+ -site scaffolding
+ -navbar
++login view
++register view
+-all orders view (admin)
+-all orders view (user)
+-page add view
+-book binding/editin view
+-configurator view
+
 TODO:
--add users model
--add regsitration
++add users model
++add regsitration
+-add book view
+-add configurator
 -add newsletter sending?
 -koszyk?
--
