@@ -9,15 +9,17 @@ class PageController extends BaseController
         $model = new PageModel();
 
         $data=['rows'=>$model->getAll()];
-        echo view('BootstrapView');
-        echo view('Website/Navbar');
+        printNavBar();
         echo view('Universal/UniversalListView',$data);
     }
 
     public function add(){
-        echo view('BootstrapView');
-        echo view('Website/Navbar');
+        printNavBar();
         echo view('Forms/AddPageView');
+    }
+
+    private function f($text){
+        return filter_var($text,FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
     }
 
     public function addAction()
@@ -49,15 +51,13 @@ class PageController extends BaseController
     public function allPages(){
         $pagesModel=new PageModel();
         $data=['rows'=>$pagesModel->getAll()];
-        echo view('BootstrapView');
-        echo view('Website/Navbar');
+        printNavBar();
         echo view('Pages/AllPagesView',$data);
     }
 
     public function test()
     {
-        echo view('BootstrapView');
-        echo view('Website/Navbar');
+        printNavBar();
     }
 
 }

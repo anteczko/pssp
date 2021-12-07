@@ -12,21 +12,19 @@ class UserController extends BaseController
         $model = new UserModel();
 
         $data=['rows'=>$model->getAll()];
-        echo view('BootstrapView');
+        printNavBar();
         echo view('Users/AllUsersView',$data);
     }
 
     public function register()
     {
-        echo view('BootstrapView');
-        echo view('Website/Navbar');
+        printNavBar();
         echo view('Forms/RegisterView');
     }
 
     public function login()
     {
-        echo view('BootstrapView');
-        echo view('Website/Navbar');
+        printNavBar();
         echo view('Forms/LoginView');
     }
 
@@ -42,8 +40,8 @@ class UserController extends BaseController
                 #TODO add sanitizzation and verification
                 $userModel=new UserModel();
                 $userModel->save([
-                    'email'=>$this->request->getPost('username'),
-                    'password'=>$this->request->getPost('password'),
+                    'email'=> $this->request->getPost('username'),
+                    'password'=>password_hash($this->request->getPost('password'),PASSWORD_BCRYPT),
                 ]);
             }else{
                 d($this->validator->getErrors());
@@ -52,6 +50,7 @@ class UserController extends BaseController
        }else{
             d("Not post!!!");
         }
+        d($userModel->getSession()->get('email'));
     }
     public function loginAction()
     {
@@ -62,14 +61,15 @@ class UserController extends BaseController
             #TODO add sanitizzation and verification
 
             $userModel=new UserModel();
-            d($userModel->login($this->request->getPost('username'),$this->request->getPost('password')));
+            $session=$userModel->login($this->request->getPost('username'),$this->request->getPost('password'));
+            return redirect()->to('/');
         }
     }
     public function logout()
     {
         $userModel=new UserModel();
         $userModel->deleteSession();
-        d($userModel->getSession()->get('email'));
+        return redirect()->to('/');
     }
 
 }

@@ -47,6 +47,20 @@ Views:
 -book binding/editin view
 -configurator view
 
+Pages categories:
+-calendars(year, month, week, day, horizontal, variant)
+ -yearly
+ -monthly
+ -weekly
+ -daily planner
+-patterns( scale, line-width, color)
+ -lines
+ -grid
+ -circles
+ -dots
+-special
+
+
 TODO:
 +add users model
 +add regsitration

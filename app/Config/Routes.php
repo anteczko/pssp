@@ -3,6 +3,8 @@
 namespace Config;
 
 // Create a new instance of our RouteCollection class.
+use App\Controllers\BookController;
+use App\Controllers\BindingController;
 use App\Controllers\UserController;
 
 $routes = Services::routes();
@@ -35,24 +37,38 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'BindingController::binding');
+#$routes->get('/', 'BindingController::binding');
+$routes->get('/','BookController::showBooks');
 
 $routes->get('/users','UserController::index');
 $routes->match(['get','post'],'/users/loginAction','UserController::loginAction');
 $routes->match(['get','post'],'/users/registerAction','UserController::registerAction');
 $routes->get('/users/login','UserController::login');
 $routes->get('/users/register','UserController::register');
-$routes->get('/users/(:segment)','UserController::$1');
+$routes->get('/users/logout','UserController::logout');
+#$routes->get('/users/(:segment)','UserController::$1');
 
 $routes->get('/pages','PageController::index');
 $routes->get('/pages/all','PageController::allPages');
 $routes->get('/pages/add','PageController::add');
 $routes->match(['get','post'],'/pages/addAction','PageController::addAction');
 
-
-
+$routes->get('/books/showBooks','BookController::showBooks');
 $routes->get('/books/binding','BindingController::binding');
+$routes->get('/books/pageRightAction','BindingController::pageRightAction');
+$routes->get('/books/pageLeftAction','BindingController::pageLeftAction');
+$routes->get('/books/addSelectedPageAction/(:segment)','BindingController::addSelectedPageAction/$1');
+#$routes->get('/books/addSelectedPageActionAt/(:num)/(:num)','BindingController::addSelectedPageAction/$1/$2');
+$routes->get('/books/bindingRightAction','BindingController::bindingRightAction');
+$routes->get('/books/bindingLeftAction','BindingController::bindingLeftAction');
+$routes->get('/books/bindingReset','BindingController::resetBinding');
+#$routes->get('/books/bindingSave','BindingController::saveBinding');
+$routes->post('/books/bindingSave','BindingController::saveBinding');
+
+$routes->get('/books/show/(:num)','BookController::showBook/$1');
+
 $routes->get('/test','PageController::test');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
